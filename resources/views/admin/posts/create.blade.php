@@ -15,21 +15,22 @@
         </ul>
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
-    <form action="{{route('admin.posts.store')}}" method="POST" role="form">
+    <form action="/admin/posts/{{$post->id}}" method="POST" role="form">
+        @method('PATCH')
         @csrf
         <div class="form-group">
             <label for="title" class="form-label">標題：</label>
-            <input id="title" name="title" class="form-control" value="{{old('title')}}" placeholder="請輸入文章標題">
+            <input name="title" class="form-control" placeholder="請輸入文章標題" value="{{old('title', $post->title)}}">
         </div>
         <div class="form-group">
             <label for="content" class="form-label">內容：</label>
-            <textarea id="content" name="content" class="form-control" rows="10">{{old('content')}}</textarea>
+            <textarea id="content" name="content" class="form-control" rows="10">{{old('content', $post->content)}}</textarea>
         </div>
         <div class="form-group">
             <label for="is_feature" class="form-label">精選？</label>
             <select id="is_feature" name="is_feature" class="form-control">
-                <option value="0">否</option>
-                <option value="1">是</option>
+                <option value="0"{{(!$post->is_feature)?'selected':''}}>否</option>
+                <option value="1"{{($post->is_feature)?'selected':''}}>是</option>
             </select>
         </div>
         <div class="text-right">
